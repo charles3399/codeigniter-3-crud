@@ -21,13 +21,13 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Title:</strong>
-                <?php echo $task->title; ?>
+                <?php echo $task[0]->title; ?>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Description:</strong>
-                <?php echo $task->description; ?>
+                <?php echo $task[0]->description; ?>
             </div>
         </div>
     </div>

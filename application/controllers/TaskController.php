@@ -7,12 +7,21 @@ class TaskController extends CI_Controller {
         parent::__construct();
         $this->load->helper('url');
         $this->load->library('session');
-        $this->load->database();
+        $this->load->model('tasks_m');
     }
+
+  private function dd($data)
+  {
+    echo "<pre>";
+    die(print_r($data));
+    echo "</pre>";
+  }
 
   public function index()
   {
-    $tasks = $this->db->get('tasks')->result();
+    $params=[];
+    
+    $tasks = $this->tasks_m->get_all_tasks();
     $this->load->view('task/index', ['tasks' => $tasks]);
   }
 
@@ -29,57 +38,26 @@ class TaskController extends CI_Controller {
 
   public function store()
   {
-      $this->load->library('form_validation');
-      $this->form_validation->set_rules('title', 'Title', 'required');
-      $this->form_validation->set_rules('description', 'Description','required');
-
-      if ($this->form_validation->run()) {
-        $task = array (
-          'title' => $this->input->post('title'),
-          'description' => $this->input->post('description'),
-        );
-
-        $this->db->insert('tasks', $task);
-      } else {
-        $errors = $this->form_validation->error_array();
-        $this->session->set_flashdata('errors', $errors);
-        redirect(base_url('task/create'));
-      }
+      $this->tasks_m->create_task();
 
       redirect('/task');
   }
 
   public function update($id)
   {
-    $this->load->library('form_validation');
-    $this->form_validation->set_rules('title', 'Title', 'required');
-    $this->form_validation->set_rules('description', 'Description', 'required');
-
-    if ($this->form_validation->run()) {
-      $task = array (
-        'title' => $this->input->post('title'),
-        'description' => $this->input->post('description'),
-      );
-
-       $this->db->where(['id' => $id])->update('tasks', $task);
-    } else {
-      $errors = $this->form_validation->error_array();
-      $this->session->set_flashdata('errors', $errors);
-      redirect(base_url('task/edit/'. $id));
-    }
+    $this->tasks_m->update_task($id);
 
      redirect('/task');
   }
 
   public function show($id) {
-     $task = $this->db->where(['id' => $id])->get('tasks')->row();
-     $this->load->view('task/show',['task' => $task]);
+    $task = $this->tasks_m->get_task($id);
+    $this->load->view('task/show',['task' => $task]);
   }
 
   public function delete($id)
   {
-     $this->db->where(['id' => $id])->delete('tasks');
-
+     $this->tasks_m->delete_task($id);
      redirect('/task');
   }
 

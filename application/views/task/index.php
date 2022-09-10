@@ -21,6 +21,8 @@
             <tr>
                 <th>Title</th>
                 <th>Description</th>
+                <th>Created</th>
+                <th>Updated</th>
                 <th width="220px">Action</th>
             </tr>
         </thead>
@@ -29,6 +31,8 @@
             <tr>
                 <td><?php echo $task->title; ?></td>
                 <td><?php echo $task->description; ?></td>
+                <td><?php echo $task->created_at; ?></td>
+                <td><?php echo $task->updated_at; ?></td>
             <td>
               <form class="d-flex justify-content-between" method="DELETE" action="<?php echo site_url('task/delete/'.$task->id);?>">
                 <a class="btn btn-info" href="<?php echo site_url('task/show/'.$task->id) ?>"> Show</a>
