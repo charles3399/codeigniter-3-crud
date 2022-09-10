@@ -60,3 +60,4 @@ $route['task/store'] = "TaskController/store";
 $route['task/show/(:any)'] = "TaskController/show/$1";
 $route['task/update/(:any)'] = "TaskController/update/$1";
 $route['task/delete/(:any)'] = "TaskController/delete/$1";
+$route['task/setEOTM/(:any)'] = "TaskController/setEOTM/$1";

@@ -23,16 +23,18 @@
                 <th>Description</th>
                 <th>Created</th>
                 <th>Updated</th>
+                <th>Status</th>
                 <th width="220px">Action</th>
             </tr>
         </thead>
         <tbody>
           <?php foreach ($tasks as $task) { ?>
             <tr>
-                <td><?php echo $task->title; ?></td>
-                <td><?php echo $task->description; ?></td>
-                <td><?php echo $task->created_at; ?></td>
-                <td><?php echo $task->updated_at; ?></td>
+                <td><?= $task->title; ?></td>
+                <td><?= $task->description; ?></td>
+                <td><?= $task->created_at; ?></td>
+                <td><?= $task->updated_at; ?></td>
+                <td><?= $task->is_eotm == 1 ? "Employee of the month" : 'Regular'; ?></td>
             <td>
               <form class="d-flex justify-content-between" method="DELETE" action="<?php echo site_url('task/delete/'.$task->id);?>">
                 <a class="btn btn-info" href="<?php echo site_url('task/show/'.$task->id) ?>"> Show</a>

@@ -7,6 +7,11 @@ class Tasks_m extends CI_Model {
         $this->load->database();
     }
 
+    public function lq()
+    {
+        return $this->db->last_query();
+    }
+
     public function get_all_tasks($params=[])
     {
         if(!empty($params['where']))
@@ -14,12 +19,8 @@ class Tasks_m extends CI_Model {
             $this->db->where($params['where']);
         }
 
-        if(!empty($params['where_in']))
-        {
-            $this->db->where_in($params['where_in']);
-        }
-
         $result = $this->db->get('tasks')->result();
+
         return $result;
     }
 
@@ -82,6 +83,20 @@ class Tasks_m extends CI_Model {
     public function delete_task($id)
     {
         $task = $this->db->where('id', $id)->delete('tasks');
+
+        return $task;
+    }
+
+    public function set_eotm($id)
+    {
+        $employee_of_the_month = $this->input->post('employee_of_the_month');
+
+        $set = [
+            "is_eotm" => $employee_of_the_month,
+            'updated_at' => date('Y-m-d'),
+        ];
+
+        $this->db->where('id', $id)->update('tasks', $set);
 
         return $task;
     }

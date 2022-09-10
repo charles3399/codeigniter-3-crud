@@ -21,7 +21,7 @@ class TaskController extends CI_Controller {
   {
     $params=[];
     
-    $tasks = $this->tasks_m->get_all_tasks();
+    $tasks = $this->tasks_m->get_all_tasks($params);
     $this->load->view('task/index', ['tasks' => $tasks]);
   }
 
@@ -59,6 +59,12 @@ class TaskController extends CI_Controller {
   {
      $this->tasks_m->delete_task($id);
      redirect('/task');
+  }
+
+  public function setEOTM($id)
+  {
+    $this->tasks_m->set_eotm($id);
+    redirect('/task');
   }
 
 }

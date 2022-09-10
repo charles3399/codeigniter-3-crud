@@ -8,9 +8,6 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12 margin-tb">
-          <div class="pull-left">
-              <h2>Codeigniter 3 CRUD Example from scratch with <a href="https://codingdriver.com/">Coding Driver</a></h2>
-          </div>
           <div class="pull-right">
               <a class="btn btn-success" href="<?php echo site_url('task'); ?>"> Back</a>
           </div>
@@ -28,6 +25,24 @@
             <div class="form-group">
                 <strong>Description:</strong>
                 <?php echo $task[0]->description; ?>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Status:</strong>
+                <?= $task[0]->is_eotm == 1 ? 'Employee of the month' : 'Regular'; ?>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <form action="<?php echo site_url('task/setEOTM/'.$task[0]->id)?>" method="post">
+                    <select class="form-control col col-lg-3 mb-2" name="employee_of_the_month" id="employee_of_the_month">
+                        <option selected>--Select status--</option>
+                        <option value=1>Set as Employee of the month</option>
+                        <option value=0>Set as regular</option>
+                    </select>
+                    <button type="submit" class="btn btn-outline-success mt-2">Set</button>
+                </form>
             </div>
         </div>
     </div>
